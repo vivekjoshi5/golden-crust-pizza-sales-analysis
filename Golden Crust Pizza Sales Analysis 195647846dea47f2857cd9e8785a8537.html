@@ -1,0 +1,698 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Golden Crust Pizza Sales Analysis</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="19564784-6dea-47f2-857c-d9e8785a8537" class="page sans"><header><img class="page-cover-image" src="https://images.unsplash.com/photo-1590947132387-155cc02f3212?ixlib=rb-4.0.3&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb" style="object-position:center 50%"/><h1 class="page-title">Golden Crust Pizza Sales Analysis</h1></header><div class="page-body"><p id="ba74f25a-eaa0-4909-a1b0-db3b07b4e22f" class="">
+</p><p id="7dda98e7-f8d5-4913-bf61-9e8bf19fcae1" class="">
+<strong>Contents</strong></p><hr id="18d8f9b4-37fa-403a-bc44-b973e3d04f87"/><nav id="ca2291e8-2516-4b95-ab85-888d9abe3be4" class="block-color-yellow_background table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#080d9b57-066f-436d-9aec-fc10cdbb7fa4">Dataset Introduction</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c3edb8e4-defa-421a-811f-4bc05677b7d8">Objective</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#843ddaca-5f1c-4357-81b0-891ebad1bd2a">Data</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#7b816f93-2d1f-4c1f-9d4d-ca23417724d1">Methodologies</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4bca7336-aa51-4a90-8415-c49466585bc1">Data Importing</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6d72e33f-b319-465e-aa20-d65b59dc13ce">Data Wrangling</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#50a1de3b-3fde-4592-809b-14d81e826691">Data Analysis</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#72f69a67-d2e1-42dd-a6c8-f7bf96c58ff9">Data Visualization &amp; Communication</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9896c092-fc7c-41f1-aede-e93f84efd82b">Recommendations</a></div></nav><p id="8a340b88-3b60-48f0-8c2f-a74fef37a8be" class="">
+</p><p id="5146bedb-fdea-4cfb-b616-668149271129" class="">
+</p><h2 id="080d9b57-066f-436d-9aec-fc10cdbb7fa4" class="block-color-red_background">Dataset Introduction</h2><p id="9d13058a-dcf3-4b34-84ab-e9ed7638a835" class="">The dataset contains a year&#x27;s worth of sales from a fictional pizza outlet “Golden Crust Pizza” based in the US, including the date and time of each order and the pizzas served, with additional details on the type, size, quantity, price, and ingredients. I will be exploring this restaurant dataset to extract some useful information from the data at hand, such as total sales, seasonality, peak order hours, etc.</p><h2 id="c3edb8e4-defa-421a-811f-4bc05677b7d8" class="block-color-red_background">Objective</h2><p id="d8ade7f5-3bb6-4b3e-b3f7-3038cd4f8bbd" class="">To explore the dataset, visualize it, extract insights &amp; provide recommendations that could be useful for the business stakeholders in assessing the restaurant’s business and discovering the areas where it can improve to maximize profits.</p><p id="356f8726-e2f6-4512-b88d-2c2ba971b4c3" class="">
+</p><h2 id="843ddaca-5f1c-4357-81b0-891ebad1bd2a" class="block-color-red_background">Data</h2><p id="56f82a04-dd08-4323-b6fe-0b9c670debca" class="">The dataset used has been downloaded from <a href="https://www.mavenanalytics.io/data-playground">this </a>source. It contains multiple tables in the form of separate CSV files. Each of these files contains a common identifier that could later be used in the process to join tables and retrieve relevant information.</p><p id="54f5d72a-6431-4633-919d-a944e615eed6" class="">
+</p><h2 id="7b816f93-2d1f-4c1f-9d4d-ca23417724d1" class="block-color-red_background">Methodologies</h2><p id="152555e3-e97a-4b03-8590-15f7cc184af7" class="">I used Microsoft Excel to apply various techniques for analyzing and visualizing data. These techniques included but not limited to:</p><ul id="81ed47c0-d051-4212-85c0-e361f98bb2f3" class="bulleted-list"><li style="list-style-type:disc">Pivot tables</li></ul><ul id="4f741d04-cfde-452a-b3c8-b626c6e434bf" class="bulleted-list"><li style="list-style-type:disc">Functions</li></ul><ul id="73e3b3ca-9fc2-435c-be71-053afd308f34" class="bulleted-list"><li style="list-style-type:disc">The Power Query Editor</li></ul><ul id="ceeb3df0-b9c9-4b38-80be-e423fb51b675" class="bulleted-list"><li style="list-style-type:disc">Merging tables</li></ul><ul id="55a0cbb6-398e-4ffa-bcd3-2372afacf63b" class="bulleted-list"><li style="list-style-type:disc">Charts for analysis</li></ul><h2 id="4bca7336-aa51-4a90-8415-c49466585bc1" class="block-color-red_background">Data Importing</h2><p id="ed885b2d-a585-4c45-a687-f09ebe66078c" class="">The dataset was imported using the Import from Text Wizard. There are 4 CSV files located in the local directory. Each file contains data such as information regarding pizza sales, order details, and other details from the pizza menu like pizza types and main ingredients.</p><p id="a496030e-1577-40f1-adac-273096e92cbe" class="">
+</p><h2 id="6d72e33f-b319-465e-aa20-d65b59dc13ce" class="block-color-red_background">Data Wrangling</h2><p id="0a3a694c-e1f3-4c15-86e7-0e1878d197d7" class="">Some tables have a relationship based on common columns. To get a better view of the complete data set, I used the Power Query Editor feature to:</p><ul id="b512feb7-f63b-4e14-9458-ac8856d25293" class="bulleted-list"><li style="list-style-type:disc">Check columns to ensure the values are in the right format</li></ul><ul id="037b6cee-43ea-405c-9656-101180c661be" class="bulleted-list"><li style="list-style-type:disc">Join tables</li></ul><ul id="d4e4d89b-fa02-4803-8528-a3d92297a3eb" class="bulleted-list"><li style="list-style-type:disc">Add new columns</li></ul><ul id="0f1bde04-6840-4414-9956-0f5e8f85432f" class="bulleted-list"><li style="list-style-type:disc">Extract weekdays</li></ul><ul id="403565c3-a85a-45e6-bbba-94bf113c4191" class="bulleted-list"><li style="list-style-type:disc">Extract months</li></ul><p id="032575e7-5783-4ebe-b5a7-8c9ac98c94b5" class="">I created pivot tables to summarize the data and extract insights..</p><p id="bb7676b9-9332-40f2-8e99-37b92ecebcaa" class="">
+</p><h2 id="50a1de3b-3fde-4592-809b-14d81e826691" class="block-color-red_background">Data Analysis</h2><p id="6bc33111-9522-48fb-954b-9f69689f8008" class="">This phase involves analysis of the data &amp; answering some questions to gain some insights from the pizza sales data for Golden Crust Pizza.
+</p><ol type="1" id="52aaf1b9-e4ae-4d78-8f83-a41653dfbea3" class="block-color-yellow_background numbered-list" start="1"><li>How many customers do we have each day? Are there any peak hours?</li></ol><p id="4d614c34-592f-4f22-9c76-e8f022e4bd0b" class="">
+<strong>Technique used:</strong> Pivot Table, Average Formula, Bar Chart,  Time Series Analysis</p><p id="5ae35368-f4f7-4ec3-bc3a-6da43dd84651" class=""><strong>Findings : </strong></p><ul id="4d4c4e60-7e9d-453a-a25e-9d9a16937c40" class="bulleted-list"><li style="list-style-type:disc">The maximum number of orders in total were placed on Thursdays where as Fridays was the day when the least number of orders were placed.</li></ul><ul id="60965489-ae46-43fa-9b15-bce2a88ac8aa" class="bulleted-list"><li style="list-style-type:disc">Average orders per day, per week &amp; per month were as follows:</li></ul><figure id="0b135735-d051-42c3-8c2e-a1d6f0e8a926" class="image"><a href="Golden%20Crust%20Pizza%20Sales%20Analysis%20195647846dea47f2857cd9e8785a8537/Untitled.png"><img style="width:288px" src="Golden%20Crust%20Pizza%20Sales%20Analysis%20195647846dea47f2857cd9e8785a8537/Untitled.png"/></a></figure><ul id="5d2f2c16-89a5-4df0-93f0-dab39d9c0abc" class="bulleted-list"><li style="list-style-type:disc">The number of orders peaked between <ul id="7a53004e-fca8-44fd-9181-2377bf6cc189" class="bulleted-list"><li style="list-style-type:circle">11:00 AM and 01:00 PM</li></ul><ul id="a1c7f0cd-fc29-4d6e-9495-15313ccba282" class="bulleted-list"><li style="list-style-type:circle"> 05:00 PM and 06:00 PM</li></ul></li></ul><p id="412956df-592c-4b90-9b7a-9dc7de4a9f02" class="">
+</p><ol type="1" id="cef51d0e-aa2f-4ea2-af83-77a59b949c6b" class="block-color-yellow_background numbered-list" start="2"><li>How many pizzas are typically in a order? Do we have any bestsellers?</li></ol><p id="0734c022-7643-4b1d-8e7c-df0e18d060e8" class="">
+<strong>Technique used:</strong> Average, Pivot Table</p><p id="97a1c100-49a7-4105-98ba-f2671d0c921e" class=""><strong>Findings : </strong>On average, approximately 5 pizzas were ordered per order. </p><p id="5066b409-8711-40b3-9c83-70f8d70dfa10" class="">Going by total sales the top 3 pizzas sold were:</p><ul id="329e8897-c175-4322-a746-43f49ce725f1" class="bulleted-list"><li style="list-style-type:disc">The California Chicken Pizza</li></ul><ul id="4eeaa8fd-26f2-4934-b83c-c4729091f75e" class="bulleted-list"><li style="list-style-type:disc">The Barbecue Chicken Pizza</li></ul><ul id="636d185e-8358-4ec8-8012-d7bea037d359" class="bulleted-list"><li style="list-style-type:disc">The Thai Chicken Pizza</li></ul><p id="32fd14b6-b306-479b-b3a4-626bc9df7aab" class="">
+</p><ol type="1" id="0569af95-107d-4f15-b5fe-c5d565ba7281" class="block-color-yellow_background numbered-list" start="3"><li>How many pizzas were ordered per day?</li></ol><p id="4caea2b9-342d-4dd3-b486-4f6c86468536" class="">
+<strong>Technique used</strong>:  I used VLOOKUP to get values from the pivot table on total orders and added a new column to the orders table which represents the total number of pizza per order.</p><p id="c403deec-a99e-4a8e-983e-e8cc785164cc" class=""><strong>Findings: </strong></p><ul id="fc2e2ed5-5f5f-4bae-918a-b2b27a09fe75" class="bulleted-list"><li style="list-style-type:disc">After plotting a chart of the number of pizzas ordered on different weekdays, it was found that the maximum number of pizzas were ordered on Fridays.</li></ul><p id="a50d3522-4bd4-4d80-8726-d7e1b847cb06" class="">
+</p><ol type="1" id="d6b3bcf5-7b5e-482d-afa1-6dc392e1098b" class="block-color-yellow_background numbered-list" start="4"><li>How much money did we make this year? Can we identify any seasonality in the sales?</li></ol><p id="652d820d-06e0-4e1c-b010-b64871656d0a" class="">
+<strong>Technique used:</strong> Power Query Editor, Pivot Table, Time Series Plot by Month</p><p id="3b27eeef-a3fd-4e4e-aaca-598d0f96cdd0" class=""><strong>Findings: </strong></p><ul id="3b293dc1-aadd-4625-b3c3-7c6f855a862c" class="bulleted-list"><li style="list-style-type:disc">Total sales generated this year was <strong>$8,01,944.70 </strong></li></ul><ul id="67505e47-4705-4516-b2de-be1f45e7401c" class="bulleted-list"><li style="list-style-type:disc">The maximum sales were generated in August.</li></ul><ul id="86cd45d6-c699-48f3-b8a2-3dcb6955db68" class="bulleted-list"><li style="list-style-type:disc">The month of October witnessed the lowest sales.</li></ul><ul id="3d34bf4f-677b-436c-9292-4cea13c71289" class="bulleted-list"><li style="list-style-type:disc">The sales peaked again In November after they soared in October.</li></ul><p id="68a5c2d2-4c5e-451b-b39a-c164aecc8daa" class="">
+</p><ol type="1" id="b3bbaeb3-7dff-4e77-92d1-96d527fb79eb" class="block-color-yellow_background numbered-list" start="5"><li>Are there any pizzas we should take off the menu, or any promotions we could leverage?</li></ol><p id="fc74fcc7-e7d8-4e42-9b07-831526d92d44" class="">
+<strong>Technique used: </strong> Treemap to visualize &amp; compare total sales. Line chart to observe the pattern of top 4 pizzas that generated lowest sales.</p><div id="d730b257-40f1-4f3a-a587-6ded8fde4c85" class="column-list"><div id="da995c7c-a283-4df7-ac29-26435bbfa499" style="width:31.25%" class="column"><p id="71b17dea-5010-4b6d-85f5-474751685dca" class=""><strong>Findings:</strong></p><ul id="42d370e0-05e4-4b2d-91af-e27dfc5b8387" class="bulleted-list"><li style="list-style-type:disc">Average sales amount to <strong>$ 25,060.77</strong></li></ul><ul id="541a909d-13b8-4c8e-80fc-d1010b0d634d" class="bulleted-list"><li style="list-style-type:disc">The Brie Carre Pizza generated the lowest total sale(<strong>$ 11,352.00</strong>) in this year.</li></ul><ul id="0879111c-6d3f-4048-9655-086af91d724c" class="bulleted-list"><li style="list-style-type:disc">The Thai Chicken Pizza generated the highest total sales(<strong>$ 42,332.25</strong>) in this year.</li></ul><ul id="23b3522a-cb22-4ed4-b2b2-7fd9bdcb7f8a" class="bulleted-list"><li style="list-style-type:disc">The <strong>Brie Carre Pizza </strong>has generated the lowest sale. The seasonal trend of <strong>Green Garden Pizza </strong>indicate that the demand for this pizza is soaring. We can promote these pizzas during peak hours of sales for a period a month or two. If this strategy does not work we can replace these pizzas with something new &amp; exciting.</li></ul><p id="811c9c17-c43c-4881-9ee7-39942d8c4ad1" class="">
+</p></div><div id="d816c66d-6360-463d-9580-fa4b92c70096" style="width:68.75%" class="column"><figure id="09a4dcc3-ff9e-4d33-b64f-86c6f7b2d150" class="image"><a href="Golden%20Crust%20Pizza%20Sales%20Analysis%20195647846dea47f2857cd9e8785a8537/Untitled%201.png"><img style="width:480px" src="Golden%20Crust%20Pizza%20Sales%20Analysis%20195647846dea47f2857cd9e8785a8537/Untitled%201.png"/></a><figcaption>Seasonal trend of top 4 lowest Pizzas that generated lowest sales.</figcaption></figure><figure id="ce80d4d9-770f-498a-9a4f-a99685a8df30" class="image"><a href="Golden%20Crust%20Pizza%20Sales%20Analysis%20195647846dea47f2857cd9e8785a8537/Untitled%202.png"><img style="width:1143px" src="Golden%20Crust%20Pizza%20Sales%20Analysis%20195647846dea47f2857cd9e8785a8537/Untitled%202.png"/></a><figcaption>The color intensity represents the total sales generated by each pizza. The darker the color the higher the total sales.</figcaption></figure></div></div><ol type="1" id="e9ec1607-bdf8-499f-8569-637e9b7e3e3e" class="block-color-yellow_background numbered-list" start="6"><li>Which category of pizza had highest sales?</li></ol><p id="894f99a0-16df-490a-8fe4-f37b417e8ade" class="">
+</p><p id="e6f2125b-3f59-4a68-a079-1515c8822d0e" class=""><strong>Technique used: </strong> Bar Chart, Filter</p><div id="f20f93cb-d2ba-4922-bccb-6161795ed158" class="column-list"><div id="d4251ea4-0b53-43c5-8f2f-4669db8914ed" style="width:37.5%" class="column"><p id="9dfca2fd-f60f-471b-b1e0-8d7955ed41ba" class=""><strong>Findings:  </strong></p><ul id="d727a3b9-8d6a-4d58-8b41-1196c930b4cf" class="bulleted-list"><li style="list-style-type:disc">Classic Pizza was the category that had the highest sales(Approx. <strong>$ 2,15,732.60</strong>)</li></ul><ul id="63a0455f-01c5-4bd0-9e77-b284dcaa74ef" class="bulleted-list"><li style="list-style-type:disc">Out of all the Classic Pizza Types, The Classic Deluxe Pizza generated the highest sale.
+</li></ul></div><div id="9f2d80e1-90a3-40ad-a41a-8a02a5c77ab8" style="width:62.5%" class="column"><figure id="29d5beb3-167b-4e69-8167-1e6c8ac9a0a2" class="image"><a href="Golden%20Crust%20Pizza%20Sales%20Analysis%20195647846dea47f2857cd9e8785a8537/Untitled%203.png"><img style="width:288px" src="Golden%20Crust%20Pizza%20Sales%20Analysis%20195647846dea47f2857cd9e8785a8537/Untitled%203.png"/></a><figcaption>Classic Pizza Types with their sales and rank </figcaption></figure></div></div><ol type="1" id="bd7a73c2-f9d3-4433-9b20-d6888fb922a8" class="block-color-yellow_background numbered-list" start="7"><li>On which day there were highest number of orders? Which was the busiest day?</li></ol><p id="a6496b8d-60f7-4fb2-8075-8543d37765f7" class="">
+</p><p id="bc757091-8fb4-40a4-b0dc-43f79575b849" class="">The maximum number of orders were placed on Friday &amp; Saturday. Fridays was the busiest day of the restaurant.</p><figure id="dc8f4773-1d6e-47c2-b2ab-2d69563dd620" class="image"><a href="Golden%20Crust%20Pizza%20Sales%20Analysis%20195647846dea47f2857cd9e8785a8537/Untitled%204.png"><img style="width:489px" src="Golden%20Crust%20Pizza%20Sales%20Analysis%20195647846dea47f2857cd9e8785a8537/Untitled%204.png"/></a></figure><p id="7f81c743-2697-4cdf-9029-71f08c0a6055" class="">
+</p><ol type="1" id="8693a19c-220e-4575-8beb-6fb83d32773d" class="block-color-yellow_background numbered-list" start="8"><li>Which pizzas were sold the most by size</li></ol><p id="21892814-b910-47a6-96fc-820147ce8eb8" class="">
+</p><p id="85a401f0-8c3d-4a6a-b5c3-ac4338e4254a" class=""><strong>Technique used: </strong> Pivot Table, Donut Chart</p><div id="399f5413-fbbb-4a82-8a97-a19f56161569" class="column-list"><div id="ae20274f-b426-4302-9ec6-fc82af01e7d1" style="width:37.5%" class="column"><p id="33d964a6-11a0-4d9c-a628-c4202598412f" class=""><strong>Findings:</strong></p><ul id="b560194e-b7f4-4ba1-8b92-805e3d01f6be" class="bulleted-list"><li style="list-style-type:disc">The<strong> L</strong> pizza type generated the maximum sales.</li></ul><ul id="26d1b4a7-6521-4d91-b393-799f70a0444a" class="bulleted-list"><li style="list-style-type:disc">The total Sales percentage difference between Small &amp; medium size pizzas is lower compared to Large &amp; medium size pizzas.  
+</li></ul></div><div id="a75dd1f2-ec3c-4229-8443-31b106ba490b" style="width:62.5%" class="column"><figure id="112d4d0c-da25-4164-b9b9-ca08dbd0ac04" class="image"><a href="Golden%20Crust%20Pizza%20Sales%20Analysis%20195647846dea47f2857cd9e8785a8537/Untitled%205.png"><img style="width:288px" src="Golden%20Crust%20Pizza%20Sales%20Analysis%20195647846dea47f2857cd9e8785a8537/Untitled%205.png"/></a></figure></div></div><p id="9d120af3-9f45-4e43-bccc-aaf987a6b101" class="">
+</p><p id="1dc9e0f9-4257-4c18-8b95-53d557a68d18" class="">
+</p><h2 id="72f69a67-d2e1-42dd-a6c8-f7bf96c58ff9" class="block-color-red_background">Data Visualization &amp; Communication</h2><p id="b8c4dd50-2674-4dda-b2da-e9bc023e171d" class="">The dashboard was created in Excel to deliver key insights visually. It shows the main highlights on the top &amp; relevant pivot charts.
+</p><figure id="7db45399-11f3-401d-9909-cd393cdfda9a" class="image" style="text-align:center"><a href="Golden%20Crust%20Pizza%20Sales%20Analysis%20195647846dea47f2857cd9e8785a8537/Untitled%206.png"><img style="width:672px" src="Golden%20Crust%20Pizza%20Sales%20Analysis%20195647846dea47f2857cd9e8785a8537/Untitled%206.png"/></a></figure><h2 id="9896c092-fc7c-41f1-aede-e93f84efd82b" class="block-color-red_background">Recommendations</h2><ul id="53f9bd35-4364-4c34-87c2-0535fa4426c5" class="bulleted-list"><li style="list-style-type:disc">We can offer discounts on food items based on minimum order bill during February, September, October &amp; December to increase sales during these months.</li></ul><ul id="f85238a5-caaa-4a8a-aa46-b65649db7f7e" class="bulleted-list"><li style="list-style-type:disc">Thai Chicken Pizza generated the maximum revenue and hence should be made available throughout operational hours. </li></ul><ul id="89b12983-8644-4769-92bc-750a91c677c3" class="bulleted-list"><li style="list-style-type:disc">We can increase manpower on Fridays &amp; Saturdays to cater to the high number of orders.</li></ul><ul id="ec0d88b5-24ff-4bb1-96cf-ded656ba19aa" class="bulleted-list"><li style="list-style-type:disc">The resources can be allocated in such a way so that there is no chance of missing any potential sales during peak hours. </li></ul><ul id="b42919df-1f81-427d-86ba-56ac3a283d66" class="bulleted-list"><li style="list-style-type:disc">The Brie Carre Pizza &amp; the Green Garden Pizza can be promoted during peak selling hours. We can also leverage their favourability by offering discounts for a limited period.</li></ul><ul id="cbbb97cc-c9e0-47c1-b029-34ff8d1de0dc" class="bulleted-list"><li style="list-style-type:disc">The maximum sale was generated by pizzas of Larger size so we need to promote them more. We can also give some small discounts on smaller size pizzas or include them in combo offers to maximize the profit.</li></ul><p id="215c43ca-327c-408c-a30b-97e02d51123e" class="">
+</p></div></article></body></html>
